@@ -2,9 +2,7 @@ const express = require('express');
 const router = express.Router();
 
 router.get("/", function (req,res) {
-    let page = req.query.page;
-    console.log(page);
-    res.send({"Key":"Value"});
+    res.render('index.ejs',{"title":"class101 웹개발자 사관학교"});
 })
 
 router.get("/about", function (req,res) {
