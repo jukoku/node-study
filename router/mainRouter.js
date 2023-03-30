@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 
 router.get("/", function (req,res) {
-    res.render('index.ejs',{"title":"class101 웹개발자 사관학교"});
+    res.render('index.ejs',{title:"class101 웹개발자 사관학교"});
 })
 
 router.get("/about", function (req,res) {
