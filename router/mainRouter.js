@@ -5,8 +5,16 @@ const db = require('../model/db');
 const cheerio = require('cheerio');
 const axios = require('axios');
 const iconv = require('iconv-lite');
+
+// 크롤링할 사이트
 const url = "https://finance.naver.com/sise/sise_quant.naver";
 
+
+router.get("/excel", function (req, res) {
+    res.render("excel.ejs");
+})
+
+// 크롤링 시작 
 router.get("/crawling", function (req, res) {
 
     // axios를 이용해서 html페이지를 전체 가져옴
@@ -31,6 +39,10 @@ router.get("/crawling", function (req, res) {
     res.send({ success: 200 });
 })
 
+// 크롤링 끝
+
+
+
 // 영화 리뷰 사이트 시작
 router.get("/", function (req, res) {
     res.render('main.ejs', { title: "영화 리뷰 사이트" });
@@ -52,6 +64,7 @@ router.post("/review/create", function (req, res) {
 
 })
 
+
 // 영화 리뷰 보기 API
 router.get("/review/read", function (req, res) {
     let movie_id = req.query.movie_id;
@@ -61,6 +74,11 @@ router.get("/review/read", function (req, res) {
     })
 
 })
+
+// 영화 리뷰 사이트 끝
+
+
+// Router 예제 시작
 
 // Api Get Router 테스트
 router.get("/about", function (req, res) {
@@ -74,6 +92,8 @@ router.post("/postapi", function (req, res) {
     res.send('POST API');
 })
 
+// Router 예제 끝
+
 /*
     C : Create
     R : Read
@@ -81,6 +101,8 @@ router.post("/postapi", function (req, res) {
     D : Delete
 
 */
+
+// sequelize - mysql CRUD 예제 시작
 
 // 저장 API
 router.get("/data/create", function (req, res) {
@@ -112,5 +134,7 @@ router.post("/data/delete", function (req, res) {
         res.send({ success: 200 });
     })
 })
+
+// sequelize - mysql CRUD 예제 끝
 
 module.exports = router
