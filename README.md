@@ -1,3 +1,5 @@
+### 이 앱은 Docker 컨테이너에서 실행되도록 코딩되었다. 
+
 ### 컨테이너 실행
 > docker run -d -p 5000:3000 -it --network net-01 --name node_app -v /mnt/c/Users/jinho/Documents/Projects/webDevelop/node-study:/app node:18.15.0
 
