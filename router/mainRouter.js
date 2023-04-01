@@ -9,11 +9,19 @@ const url = "https://finance.naver.com/sise/sise_quant.naver";
 
 router.get("/crawling", function (req, res) {
 
+    // axios를 이용해서 html페이지를 전체 가져옴
     axios({ url: url, method: 'GET', responseType: "arraybuffer" }).then(function (html) {
+
+        // iconv를 이용해서 글자를 깨지지 않게 한글로 인코딩해서 저장함
         const content = iconv.decode(html.data, "EUC-KR").toString();
+
+        // cheerio를 이용해서 저장한 데이터를 불러옴 불러온 데이터를 $에 저장
         const $ = cheerio.load(content);
 
+        // cheerio에 있는 데이터 중 원하는 데이터를 .클래스 태그 등으로 선택해서 불러옴
         const table = $(".type_2 tbody tr td");
+
+        // 불러온 데이터를 순차적으로 콘솔로 인쇄
         table.each(function (i, tag) {
             console.log($(tag).text().trim());
         });
@@ -33,6 +41,7 @@ router.post("/review/create", function (req, res) {
     let movie_id = req.body.movie_id;
     let review = req.body.review;
 
+    // 아이디가 없을 경우 경고
     if (movie_id == '' || movie_id == 0) {
         res.send({ success: 400 });
     } else {
