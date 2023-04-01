@@ -9,10 +9,19 @@ const iconv = require('iconv-lite');
 // 크롤링할 사이트
 const url = "https://finance.naver.com/sise/sise_quant.naver";
 
+// 엑셀 파일 내려받기
+router.get("/excel/down", function (req, res) {
+    let excel_data = [{ "A": 1, "B": 2, "C": 3, "D": 4 }];
+    res.xls('data.xlsx', excel_data);
+})
 
+
+// 엑셀 파일 업로드 -> json파일 변환
 router.get("/excel", function (req, res) {
     res.render("excel.ejs");
 })
+
+
 
 // 크롤링 시작 
 router.get("/crawling", function (req, res) {
