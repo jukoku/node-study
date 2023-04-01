@@ -1,7 +1,7 @@
 var Sequelize = require("sequelize");
 var sequelize;
 sequelize = new Sequelize("nodeStudy", "root", "test123", {
-  host: "172.18.0.2",
+  host: "db",
   port: 3306,
   dialect: "mysql",
   timezone: "++09:00",
