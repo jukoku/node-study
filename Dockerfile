@@ -1,4 +1,4 @@
-FROM node:12-alpine
+FROM node:18.15.0
 WORKDIR /app
 ENV PORT=3000
 COPY . .
