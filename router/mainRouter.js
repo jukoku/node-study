@@ -24,8 +24,6 @@ router.post("/postapi", function (req, res) {
 
 */
 
-
-
 // 저장 API
 router.get("/data/create", function (req, res) {
     let user_id = parseInt(Math.random() * 10000);
@@ -38,6 +36,22 @@ router.get("/data/create", function (req, res) {
 router.get("/data/read", function (req, res) {
     db.users.findAll().then(function (result) {
         res.send({ success: 200, data: result });
+    })
+})
+
+// 변경 API -> Where: 뒤에 변경할 값의 딕셔너리 입력
+router.post("/data/update", function (req, res) {
+    let target_id = req.body.target_id;
+    db.users.update({ user_id: 9999 }, { where: { user_id: target_id } }).then(function (result) {
+        res.send({ success: 200 });
+    })
+})
+
+// 삭제 API -> where: 뒤에 삭제할 값의 딕셔너리 입력
+router.post("/data/delete", function (req, res) {
+    let target_id = req.body.target_id;
+    db.users.destroy({ where: { user_id: target_id } }).then(function (result) {
+        res.send({ success: 200 });
     })
 })
 
