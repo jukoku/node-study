@@ -16,6 +16,7 @@ sequelize = new Sequelize("nodeStudy", "root", "test123", {
 var db = {};
 
 db.users = sequelize.import(__dirname + "/users.js")
+db.reviews = sequelize.import(__dirname + "/reviews.js")
 
 db.sequelize = sequelize;
 db.Sequelize = Sequelize;
