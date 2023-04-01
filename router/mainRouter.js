@@ -2,10 +2,33 @@ const express = require('express');
 const router = express.Router();
 const db = require('../model/db');
 
+const cheerio = require('cheerio');
+const axios = require('axios');
+const iconv = require('iconv-lite');
+const url = "https://finance.naver.com/sise/sise_quant.naver";
+
+router.get("/crawling", function (req, res) {
+
+    axios({ url: url, method: 'GET', responseType: "arraybuffer" }).then(function (html) {
+        const content = iconv.decode(html.data, "EUC-KR").toString();
+        const $ = cheerio.load(content);
+
+        const table = $(".type_2 tbody tr td");
+        table.each(function (i, tag) {
+            console.log($(tag).text().trim());
+        });
+
+    });
+
+    res.send({ success: 200 });
+})
+
+// 영화 리뷰 사이트 시작
 router.get("/", function (req, res) {
     res.render('main.ejs', { title: "영화 리뷰 사이트" });
 })
 
+// 영화 리뷰 생성 API
 router.post("/review/create", function (req, res) {
     let movie_id = req.body.movie_id;
     let review = req.body.review;
@@ -20,6 +43,7 @@ router.post("/review/create", function (req, res) {
 
 })
 
+// 영화 리뷰 보기 API
 router.get("/review/read", function (req, res) {
     let movie_id = req.query.movie_id;
 
@@ -29,11 +53,12 @@ router.get("/review/read", function (req, res) {
 
 })
 
-
+// Api Get Router 테스트
 router.get("/about", function (req, res) {
     res.send('About Page');
 })
 
+// API POST Router 테스트
 router.post("/postapi", function (req, res) {
     let body = req.body;
     console.log(body);
